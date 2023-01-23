@@ -18,6 +18,7 @@ defmodule PhoenixAppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/light", LightLive, :index
   end
 
   # Other scopes may use custom stacks.
