@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  postgres:
+    build: ./postgres
+    image: ecto-database
+    container_name: ecto-database
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
+      - ecto-data:/var/lib/postgresql/data
+    ports:
+      - '5555:5432'
+    restart: always
+  app:
+    build: .
+    image: ecto-app
+    container_name: ecto-app
+    volumes:
+      - .:/app
+    tty: true
+    stdin_open: true
+    restart: always
+    depends_on:
+      - postgres
+
+volumes:
+  ecto-data:
+    driver: local
