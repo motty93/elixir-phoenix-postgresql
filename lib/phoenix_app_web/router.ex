@@ -18,6 +18,9 @@ defmodule PhoenixAppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    resources "/users", UserController
+
     live "/light", LightLive, :index
   end
 
